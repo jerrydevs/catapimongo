@@ -20,10 +20,7 @@ const getCatImage = async () => {
 
 // value = 1 for upvotes, value = 0 for downvotes
 const getImageVotes = async (id, value) => {
-  const res = await axios.get(ENDPOINTS.VOTES_URL, {
-    id,
-    value,
-  })
+  const res = await axios.get(`${ENDPOINTS.VOTES_URL}/${id}/${value}`)
 
   return res.data
 }

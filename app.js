@@ -69,10 +69,10 @@ app.post('/v1/images', async function (req, res, next) {
   }
 })
 
-app.get('/v1/votes', async function (req, res, next) {
+app.get('/v1/votes/:id/:value', async function (req, res, next) {
   try {
-    const { id, value } = req.body
-    const count = await Vote.countDocuments({ id, value });
+    const { id, value } = req.params
+    const count = await Vote.countDocuments({ id, value })
     // const count = await Vote.find({ id: id, value: value }).countDocuments().exec()
     console.log('id, value: ', id, value)
     console.log('count ', count)
