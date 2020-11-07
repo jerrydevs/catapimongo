@@ -53,8 +53,8 @@ const setVoteCounts = (upvotes, downvotes) => {
 getCatImage().then(async (data) => {
   const res = data
   setCatImg(res.url)
-  const upvotes = await getImageVotes(res.url, 1)
-  const downvotes = await getImageVotes(res.url, 0)
+  const upvotes = await getImageVotes(res.id, 1)
+  const downvotes = await getImageVotes(res.id, 0)
   setVoteCounts(upvotes.count, downvotes.count)
   addVotingButtonEventListener(upvoteButton, 1, res.id)
   addVotingButtonEventListener(downvoteButton, 0, res.id)
