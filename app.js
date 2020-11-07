@@ -72,8 +72,8 @@ app.post('/v1/images', async function (req, res, next) {
 app.get('/v1/votes', async function (req, res, next) {
   try {
     const { id, value } = req.body
-    const count = await Vote.find({ id: id, value: value }).countDocuments().exec()
-    // const votes = Vote.find({ id: id })
+    const count = await Vote.countDocuments({ id, value });
+    // const count = await Vote.find({ id: id, value: value }).countDocuments().exec()
 
     if (count > 0) {
       res.status(200).send({ count: count })

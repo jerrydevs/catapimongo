@@ -6,41 +6,27 @@ const ENDPOINTS = {
 const catImg = document.getElementById('cat-image')
 const upvoteButton = document.getElementById('upvoteButton')
 const downvoteButton = document.getElementById('downvoteButton')
-// const upvoteSpan = document.getElementById('upvote-counts')
-// const downvoteSpan = document.getElementById('downvote-counts')
+const upvoteSpan = document.getElementById('upvote-counts')
+const downvoteSpan = document.getElementById('downvote-counts')
 
 const setCatImg = (imgURL) => {
   catImg.src = imgURL
 }
 
 const getCatImage = async () => {
-  const res = await fetch(ENDPOINTS.GET_CAT_URL, {
-    method: 'GET',
-  })
-  return res.json()
+  const res = await axios.get(ENDPOINTS.GET_CAT_URL)
+  return res.data
 }
 
-// const getImageUpvotes = async (id, value) => {
-//   const res = await fetch(ENDPOINTS.VOTES_URL, {
-//     method: 'GET',
-//     body: JSON.stringify({
-//       id,
-//       value,
-//     }),
-//   })
-//   return res.json()
-// }
+// value = 1 for upvotes, value = 0 for downvotes
+const getImageVotes = async (id, value) => {
+  const res = await axios.get(ENDPOINTS.VOTES_URL, {
+    id,
+    value,
+  })
 
-// const getImageDownvotes = async (id, value) => {
-//   const res = await fetch(ENDPOINTS.VOTES_URL, {
-//     method: 'GET',
-//     body: JSON.stringify({
-//       id,
-//       value,
-//     }),
-//   })
-//   return res.json()
-// }
+  return res.data
+}
 
 const addVotingButtonEventListener = (buttonElement, voteType, imgId) => {
   buttonElement.addEventListener('click', async function () {
@@ -62,17 +48,17 @@ const addVotingButtonEventListener = (buttonElement, voteType, imgId) => {
   })
 }
 
-// const setVoteCounts = (upvotes, downvotes) => {
-//   upvoteSpan.textContent = upvotes
-//   downvotes.textContent = downvotes
-// }
+const setVoteCounts = (upvotes, downvotes) => {
+  upvoteSpan.textContent = upvotes
+  downvoteSpan.textContent = downvotes
+}
 
-getCatImage().then((data) => {
+getCatImage().then(async (data) => {
   const res = data
   setCatImg(res.url)
-  // const upvotes = getImageUpvotes(res.url, 1)
-  // const downvotes = getImageDownvotes(res.url, 0)
-  // setVoteCounts(upvotes, downvotes)
+  const upvotes = await getImageVotes(res.url, 1)
+  const downvotes = await getImageVotes(res.url, 0)
+  setVoteCounts(upvotes.count, downvotes.count)
   addVotingButtonEventListener(upvoteButton, 1, res.id)
   addVotingButtonEventListener(downvoteButton, 0, res.id)
 })
