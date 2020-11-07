@@ -74,7 +74,7 @@ app.get('/v1/votes', async function (req, res, next) {
     const { id, value } = req.body
     const count = await Vote.countDocuments({ id, value });
     // const count = await Vote.find({ id: id, value: value }).countDocuments().exec()
-
+    console.log('count ', count)
     if (count > 0) {
       res.status(200).send({ count: count })
     } else {
