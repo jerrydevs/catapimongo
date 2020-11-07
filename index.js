@@ -1,6 +1,6 @@
 const ENDPOINTS = {
-  GET_CAT_URL: 'http://localhost:3005/v1/images/search',
-  VOTES_URL: 'http://localhost:3005/v1/votes',
+  GET_CAT_URL: 'https://catapimongo.herokuapp.com/v1/images/search',
+  VOTES_URL: 'https://catapimongo.herokuapp.com/v1/votes',
 }
 
 const catImg = document.getElementById('cat-image')

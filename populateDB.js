@@ -1,6 +1,7 @@
 const axios = require('axios')
 const cats = require('./cats.json')
-const POST_URL = 'http://localhost:3005/v1/images'
+require('dotenv').config()
+const POST_URL = 'https://catapimongo.herokuapp.com/v1/images'
 
 cats.forEach(async (cat) => {
   try {
